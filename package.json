@@ -1,0 +1,58 @@
+{
+  "name": "slpm",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "lint": "eslint",
+    "test:e2e": "npx tsx src/utils/run-e2e-test.ts",
+    "test:mixer": "npx tsx src/utils/e2e-privacy-mixer-test.ts",
+    "test:cashu": "npx tsx test-cashu-mainnet-standalone.ts",
+    "test:cashu:js": "node test-cashu-mainnet-standalone.js",
+    "test:mainnet": "npx tsx test-mainnet-integration.ts",
+    "recover:cashu": "npx tsx recover-cashu-token.ts",
+    "setup:testnet": "npx tsx src/utils/setup-testnet-account.ts",
+    "deploy:braavos": "npx tsx src/utils/deploy-braavos-account.ts"
+  },
+  "dependencies": {
+    "@atomiqlabs/sdk": "^6.0.3",
+    "@atomiqlabs/storage-sqlite": "^3.0.0",
+    "@cashu/cashu-ts": "^2.7.2",
+    "@heroicons/react": "^2.2.0",
+    "@scure/starknet": "^2.0.0",
+    "@starknet-io/get-starknet": "^4.0.7",
+    "bitcoinjs-lib": "^6.1.7",
+    "bolt11": "^1.4.1",
+    "dotenv": "^17.2.2",
+    "get-starknet": "^4.0.0",
+    "ln-service": "^57.27.0",
+    "mermaid": "^11.12.0",
+    "next": "15.5.3",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-markdown": "^10.1.0",
+    "react-syntax-highlighter": "^15.6.6",
+    "remark-gfm": "^4.0.1",
+    "starknet": "^7.6.4",
+    "wagmi": "^2.17.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@tailwindcss/typography": "^0.5.19",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.3",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  },
+  "optionalDependencies": {
+    "@atomiqlabs/chain-starknet": "^5.1.5"
+  }
+}

@@ -1,0 +1,668 @@
+[
+  {
+    "type": "impl",
+    "name": "PrivacyMixerImpl",
+    "interface_name": "contract::privacy_mixer::IPrivacyMixer"
+  },
+  {
+    "type": "struct",
+    "name": "core::integer::u256",
+    "members": [
+      {
+        "name": "low",
+        "type": "core::integer::u128"
+      },
+      {
+        "name": "high",
+        "type": "core::integer::u128"
+      }
+    ]
+  },
+  {
+    "type": "enum",
+    "name": "core::bool",
+    "variants": [
+      {
+        "name": "False",
+        "type": "()"
+      },
+      {
+        "name": "True",
+        "type": "()"
+      }
+    ]
+  },
+  {
+    "type": "struct",
+    "name": "contract::privacy_mixer::MixingStats",
+    "members": [
+      {
+        "name": "total_deposits",
+        "type": "core::integer::u256"
+      },
+      {
+        "name": "total_withdrawals",
+        "type": "core::integer::u256"
+      },
+      {
+        "name": "active_commitments",
+        "type": "core::integer::u256"
+      },
+      {
+        "name": "anonymity_set_size",
+        "type": "core::integer::u256"
+      },
+      {
+        "name": "mixing_efficiency",
+        "type": "core::integer::u256"
+      }
+    ]
+  },
+  {
+    "type": "struct",
+    "name": "contract::privacy_mixer::PrivacyMetrics",
+    "members": [
+      {
+        "name": "min_anonymity_set",
+        "type": "core::integer::u256"
+      },
+      {
+        "name": "avg_mixing_time",
+        "type": "core::integer::u256"
+      },
+      {
+        "name": "unlinkability_score",
+        "type": "core::integer::u256"
+      },
+      {
+        "name": "temporal_privacy_score",
+        "type": "core::integer::u256"
+      }
+    ]
+  },
+  {
+    "type": "interface",
+    "name": "contract::privacy_mixer::IPrivacyMixer",
+    "items": [
+      {
+        "type": "function",
+        "name": "deposit",
+        "inputs": [
+          {
+            "name": "commitment",
+            "type": "core::felt252"
+          },
+          {
+            "name": "amount",
+            "type": "core::integer::u256"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "core::felt252"
+          }
+        ],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "batch_deposit",
+        "inputs": [
+          {
+            "name": "commitments",
+            "type": "core::array::Array::<core::felt252>"
+          },
+          {
+            "name": "amounts",
+            "type": "core::array::Array::<core::integer::u256>"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "core::array::Array::<core::felt252>"
+          }
+        ],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "withdraw",
+        "inputs": [
+          {
+            "name": "nullifier",
+            "type": "core::felt252"
+          },
+          {
+            "name": "commitment",
+            "type": "core::felt252"
+          },
+          {
+            "name": "recipient",
+            "type": "core::starknet::contract_address::ContractAddress"
+          },
+          {
+            "name": "amount",
+            "type": "core::integer::u256"
+          },
+          {
+            "name": "proof",
+            "type": "core::array::Array::<core::felt252>"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "core::bool"
+          }
+        ],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "get_anonymity_set_size",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::integer::u256"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "get_total_deposits",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::integer::u256"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "get_total_withdrawals",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::integer::u256"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "get_min_delay",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::integer::u64"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "get_min_anonymity_set",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::integer::u256"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "is_nullifier_used",
+        "inputs": [
+          {
+            "name": "nullifier",
+            "type": "core::felt252"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "core::bool"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "is_commitment_valid",
+        "inputs": [
+          {
+            "name": "commitment",
+            "type": "core::felt252"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "core::bool"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "register_account",
+        "inputs": [
+          {
+            "name": "account_type",
+            "type": "core::felt252"
+          },
+          {
+            "name": "metadata",
+            "type": "core::felt252"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "core::felt252"
+          }
+        ],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "get_account_balance",
+        "inputs": [
+          {
+            "name": "account_id",
+            "type": "core::felt252"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "core::integer::u256"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "transfer_between_accounts",
+        "inputs": [
+          {
+            "name": "from",
+            "type": "core::felt252"
+          },
+          {
+            "name": "to",
+            "type": "core::felt252"
+          },
+          {
+            "name": "amount",
+            "type": "core::integer::u256"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "core::bool"
+          }
+        ],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "emergency_pause",
+        "inputs": [],
+        "outputs": [],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "emergency_unpause",
+        "inputs": [],
+        "outputs": [],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "is_paused",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::bool"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "set_min_delay",
+        "inputs": [
+          {
+            "name": "new_delay",
+            "type": "core::integer::u64"
+          }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "set_min_anonymity",
+        "inputs": [
+          {
+            "name": "new_min_anonymity",
+            "type": "core::integer::u256"
+          }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "set_fee_rate",
+        "inputs": [
+          {
+            "name": "new_fee_rate",
+            "type": "core::integer::u256"
+          }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "get_owner",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::starknet::contract_address::ContractAddress"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "get_strk_token",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::starknet::contract_address::ContractAddress"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "get_mixing_stats",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "contract::privacy_mixer::MixingStats"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "verify_privacy_guarantees",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "contract::privacy_mixer::PrivacyMetrics"
+          }
+        ],
+        "state_mutability": "view"
+      }
+    ]
+  },
+  {
+    "type": "constructor",
+    "name": "constructor",
+    "inputs": [
+      {
+        "name": "owner",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "strk_token",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "min_deposit",
+        "type": "core::integer::u256"
+      },
+      {
+        "name": "max_deposit",
+        "type": "core::integer::u256"
+      },
+      {
+        "name": "mixing_fee",
+        "type": "core::integer::u256"
+      },
+      {
+        "name": "min_anonymity",
+        "type": "core::integer::u256"
+      },
+      {
+        "name": "min_delay",
+        "type": "core::integer::u64"
+      }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "contract::privacy_mixer::PrivacyMixer::Deposit",
+    "kind": "struct",
+    "members": [
+      {
+        "name": "commitment",
+        "type": "core::felt252",
+        "kind": "key"
+      },
+      {
+        "name": "amount",
+        "type": "core::integer::u256",
+        "kind": "data"
+      },
+      {
+        "name": "depositor",
+        "type": "core::starknet::contract_address::ContractAddress",
+        "kind": "data"
+      },
+      {
+        "name": "timestamp",
+        "type": "core::integer::u64",
+        "kind": "data"
+      },
+      {
+        "name": "anonymity_set_size",
+        "type": "core::integer::u256",
+        "kind": "data"
+      }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "contract::privacy_mixer::PrivacyMixer::Withdrawal",
+    "kind": "struct",
+    "members": [
+      {
+        "name": "nullifier",
+        "type": "core::felt252",
+        "kind": "key"
+      },
+      {
+        "name": "recipient",
+        "type": "core::starknet::contract_address::ContractAddress",
+        "kind": "data"
+      },
+      {
+        "name": "amount",
+        "type": "core::integer::u256",
+        "kind": "data"
+      },
+      {
+        "name": "timestamp",
+        "type": "core::integer::u64",
+        "kind": "data"
+      },
+      {
+        "name": "anonymity_set_size",
+        "type": "core::integer::u256",
+        "kind": "data"
+      }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "contract::privacy_mixer::PrivacyMixer::AccountRegistered",
+    "kind": "struct",
+    "members": [
+      {
+        "name": "account_id",
+        "type": "core::felt252",
+        "kind": "key"
+      },
+      {
+        "name": "owner",
+        "type": "core::starknet::contract_address::ContractAddress",
+        "kind": "data"
+      },
+      {
+        "name": "account_type",
+        "type": "core::felt252",
+        "kind": "data"
+      },
+      {
+        "name": "timestamp",
+        "type": "core::integer::u64",
+        "kind": "data"
+      }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "contract::privacy_mixer::PrivacyMixer::AccountTransfer",
+    "kind": "struct",
+    "members": [
+      {
+        "name": "from_account",
+        "type": "core::felt252",
+        "kind": "key"
+      },
+      {
+        "name": "to_account",
+        "type": "core::felt252",
+        "kind": "key"
+      },
+      {
+        "name": "amount",
+        "type": "core::integer::u256",
+        "kind": "data"
+      },
+      {
+        "name": "timestamp",
+        "type": "core::integer::u64",
+        "kind": "data"
+      }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "contract::privacy_mixer::PrivacyMixer::EmergencyPause",
+    "kind": "struct",
+    "members": [
+      {
+        "name": "timestamp",
+        "type": "core::integer::u64",
+        "kind": "data"
+      },
+      {
+        "name": "triggered_by",
+        "type": "core::starknet::contract_address::ContractAddress",
+        "kind": "data"
+      }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "contract::privacy_mixer::PrivacyMixer::EmergencyUnpause",
+    "kind": "struct",
+    "members": [
+      {
+        "name": "timestamp",
+        "type": "core::integer::u64",
+        "kind": "data"
+      },
+      {
+        "name": "triggered_by",
+        "type": "core::starknet::contract_address::ContractAddress",
+        "kind": "data"
+      }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "contract::privacy_mixer::PrivacyMixer::PrivacyMetricsUpdate",
+    "kind": "struct",
+    "members": [
+      {
+        "name": "anonymity_set_size",
+        "type": "core::integer::u256",
+        "kind": "data"
+      },
+      {
+        "name": "mixing_efficiency",
+        "type": "core::integer::u256",
+        "kind": "data"
+      },
+      {
+        "name": "temporal_privacy_score",
+        "type": "core::integer::u256",
+        "kind": "data"
+      },
+      {
+        "name": "timestamp",
+        "type": "core::integer::u64",
+        "kind": "data"
+      }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "contract::privacy_mixer::PrivacyMixer::Event",
+    "kind": "enum",
+    "variants": [
+      {
+        "name": "Deposit",
+        "type": "contract::privacy_mixer::PrivacyMixer::Deposit",
+        "kind": "nested"
+      },
+      {
+        "name": "Withdrawal",
+        "type": "contract::privacy_mixer::PrivacyMixer::Withdrawal",
+        "kind": "nested"
+      },
+      {
+        "name": "AccountRegistered",
+        "type": "contract::privacy_mixer::PrivacyMixer::AccountRegistered",
+        "kind": "nested"
+      },
+      {
+        "name": "AccountTransfer",
+        "type": "contract::privacy_mixer::PrivacyMixer::AccountTransfer",
+        "kind": "nested"
+      },
+      {
+        "name": "EmergencyPause",
+        "type": "contract::privacy_mixer::PrivacyMixer::EmergencyPause",
+        "kind": "nested"
+      },
+      {
+        "name": "EmergencyUnpause",
+        "type": "contract::privacy_mixer::PrivacyMixer::EmergencyUnpause",
+        "kind": "nested"
+      },
+      {
+        "name": "PrivacyMetricsUpdate",
+        "type": "contract::privacy_mixer::PrivacyMixer::PrivacyMetricsUpdate",
+        "kind": "nested"
+      }
+    ]
+  }
+]

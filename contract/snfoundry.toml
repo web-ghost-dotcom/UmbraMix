@@ -1,0 +1,16 @@
+# Visit https://foundry-rs.github.io/starknet-foundry/appendix/snfoundry-toml.html
+# and https://foundry-rs.github.io/starknet-foundry/projects/configuration.html for more information
+
+[sncast.default]                                         # Sepolia testnet profile
+url = "https://starknet-sepolia.g.alchemy.com/starknet/version/rpc/v0_8/kwgGr9GGk4YyLXuGfEvpITv1jpvn3PgP"
+account = "walkscape_deployer"
+wait-params = { timeout = 300, retry-interval = 10 }
+block-explorer = "StarkScan"
+show-explorer-links = true
+
+[sncast.mainnet]                                         # Mainnet deployment profile
+url = "https://starknet-mainnet.g.alchemy.com/starknet/version/rpc/v0_8/kwgGr9GGk4YyLXuGfEvpITv1jpvn3PgP"  # Replace with your mainnet RPC
+account = "privacy_mixer_deployer"                       # Account for mainnet deployment
+wait-params = { timeout = 600, retry-interval = 15 }     # Longer timeout for mainnet
+block-explorer = "StarkScan"
+show-explorer-links = true
